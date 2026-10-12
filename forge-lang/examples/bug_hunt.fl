@@ -1,0 +1,136 @@
+# Test 1: Closures in loops - classic variable capture
+fn make_counters() {
+    let fns = []
+    for (i in range(0, 3)) {
+        fns.push(fn() { return i })
+    }
+    return fns
+}
+
+let counters = make_counters()
+print("Closure capture (expect 0, 1, 2):")
+print("  " + str(counters[0]()))
+print("  " + str(counters[1]()))
+print("  " + str(counters[2]()))
+
+# Test 2: Nested function definitions
+fn outer() {
+    fn inner() {
+        return 42
+    }
+    return inner()
+}
+print("Nested fn (expect 42): " + str(outer()))
+
+# Test 3: Shadowing
+let x = 10
+fn test_shadow() {
+    let x = 20
+    return x
+}
+print("Shadow (expect 10, 20): " + str(x) + ", " + str(test_shadow()))
+
+# Test 4: String methods
+let s = "Hello World"
+print("String upper (expect HELLO WORLD): " + str(s.upper()))
+print("String lower (expect hello world): " + str(s.lower()))
+print("String len (expect 11): " + str(s.len))
+print("String split (expect [Hello, World]): " + str(s.split(" ")))
+
+# Test 5: List methods
+let lst = [1, 2, 3]
+print("List len (expect 3): " + str(lst.len))
+print("List first (expect 1): " + str(lst.first))
+print("List last (expect 3): " + str(lst.last))
+lst.push(4)
+print("After push 4 (expect [1, 2, 3, 4]): " + str(lst))
+print("After pop (expect 4): " + str(lst.pop()))
+print("List now (expect [1, 2, 3]): " + str(lst))
+
+# Test 6: Negative indexing
+print("Negative index [-1] (expect 3): " + str(lst[-1]))
+print("Negative index [-2] (expect 2): " + str(lst[-2]))
+
+# Test 7: Nested lists
+let nested = [[1, 2], [3, 4]]
+print("Nested [1][0] (expect 3): " + str(nested[1][0]))
+print("Nested [0][1] (expect 2): " + str(nested[0][1]))
+
+# Test 8: Empty function returns nil
+fn nothing() {}
+print("Empty fn (expect nil): " + str(nothing()))
+
+# Test 9: Boolean operations
+print("and (expect false): " + str(true and false))
+print("or (expect true): " + str(true or false))
+print("not (expect false): " + str(not true))
+
+# Test 10: Modulo and division
+print("7 % 3 (expect 1): " + str(7 % 3))
+print("7 / 2 (expect 3.5): " + str(7 / 2))
+
+# Test 11: String multiplication
+print("'ab' * 3 (expect ababab): " + str("ab" * 3))
+print("3 * 'ab' (expect ababab): " + str(3 * "ab"))
+
+# Test 12: List + List
+print("[1,2] + [3,4] (expect [1, 2, 3, 4]): " + str([1, 2] + [3, 4]))
+
+# Test 13: Chained calls
+fn add(a, b) { return a + b }
+fn mul(a, b) { return a * b }
+print("mul(add(1,2), add(3,4)) (expect 21): " + str(mul(add(1, 2), add(3, 4))))
+
+# Test 14: For over string
+for (c in "abc") {
+    print("  char: " + str(c))
+}
+
+# Test 15: Break and continue
+let result = []
+for (i in range(0, 10)) {
+    if (i == 5) { break }
+    if (i % 2 == 0) { continue }
+    result.push(i)
+}
+print("Break/continue (expect [1, 3]): " + str(result))
+
+# Test 16: While loop
+let count = 0
+let sum = 0
+while (count < 5) {
+    sum = sum + count
+    count = count + 1
+}
+print("While sum (expect 10): " + str(sum))
+
+# Test 17: Elif chain
+fn classify(n) {
+    if (n < 0) { return "negative" }
+    elif (n == 0) { return "zero" }
+    elif (n < 10) { return "small" }
+    else { return "large" }
+}
+print("classify(-5): " + classify(-5))
+print("classify(0): " + classify(0))
+print("classify(5): " + classify(5))
+print("classify(100): " + classify(100))
+
+# Test 18: Deep recursion (small)
+fn sum_to(n) {
+    if (n <= 0) { return 0 }
+    return n + sum_to(n - 1)
+}
+print("sum_to(100) (expect 5050): " + str(sum_to(100)))
+
+# Test 19: List map with inline closures
+let nums = [1, 2, 3, 4, 5]
+let squared = nums.map(fn(x) { return x * x })
+print("squared (expect [1, 4, 9, 16, 25]): " + str(squared))
+
+let evens = nums.filter(fn(x) { return x % 2 == 0 })
+print("evens (expect [2, 4]): " + str(evens))
+
+# Test 20: String join
+let words = ["hello", "world"]
+print("join with space (expect [hello, world]): " + str(words.join(" ")))

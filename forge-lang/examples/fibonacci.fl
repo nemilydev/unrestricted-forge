@@ -1,0 +1,30 @@
+# Fibonacci — recursive and iterative, closures, string interpolation via concat
+
+fn fib(n) {
+    if (n <= 1) {
+        return n
+    }
+    return fib(n - 1) + fib(n - 2)
+}
+
+fn fib_iter(n) {
+    let a = 0
+    let b = 1
+    for (i in range(0, n)) {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    return a
+}
+
+print("Fibonacci (recursive):")
+for (i in range(0, 12)) {
+    print("  fib(" + str(i) + ") = " + str(fib(i)))
+}
+
+print("")
+print("Fibonacci (iterative):")
+for (i in range(0, 12)) {
+    print("  fib(" + str(i) + ") = " + str(fib_iter(i)))
+}

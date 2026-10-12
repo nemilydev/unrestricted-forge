@@ -1,0 +1,69 @@
+# Stress test — nested loops, string building, recursion, lists of lists
+
+fn is_prime(n) {
+    if (n < 2) { return false }
+    if (n == 2) { return true }
+    if (n % 2 == 0) { return false }
+    let i = 3
+    while (i * i <= n) {
+        if (n % i == 0) { return false }
+        i = i + 1
+    }
+    return true
+}
+
+fn primes_up_to(limit) {
+    let result = []
+    for (n in range(2, limit)) {
+        if (is_prime(n)) {
+            result.push(n)
+        }
+    }
+    return result
+}
+
+fn gcd(a, b) {
+    if (b == 0) { return a }
+    return gcd(b, a % b)
+}
+
+fn matrix(rows, cols, fill) {
+    let m = []
+    for (i in range(0, rows)) {
+        let row = []
+        for (j in range(0, cols)) {
+            row.push(fill)
+        }
+        m.push(row)
+    }
+    return m
+}
+
+print("Primes up to 50:")
+print("  " + str(primes_up_to(50)))
+
+print("")
+print("GCD:")
+print("  gcd(48, 36) = " + str(gcd(48, 36)))
+print("  gcd(1071, 462) = " + str(gcd(1071, 462)))
+print("  gcd(17, 13) = " + str(gcd(17, 13)))
+
+print("")
+print("3x4 matrix of zeros:")
+let m = matrix(3, 4, 0)
+print("  " + str(m))
+print("  m[1][2] = " + str(m[1][2]))
+
+print("")
+print("Nested data — sum of prime digits up to 30:")
+let prime_list = primes_up_to(30)
+let total = 0
+for (p in prime_list) {
+    while (p > 0) {
+        total = total + (p % 10)
+        p = p - p % 10
+        p = p / 10
+    }
+}
+print("  primes: " + str(prime_list))
+print("  digit sum: " + str(total))
