@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft Life — The Forge</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    background:#0a0807;
+    color:#c4a97d;
+    font-family:'Georgia',serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+.header{text-align:center;margin-bottom:12px;}
+.header h1{font-size:1.4em;font-weight:normal;color:#e8c887;letter-spacing:.04em;}
+.header .sub{color:#8a6f4e;font-size:.85em;font-style:italic;margin-top:4px;}
+canvas{display:block;border:1px solid #2a2218;background:#0d0a08;border-radius:2px;}
+.controls{
+    display:flex;gap:20px;align-items:center;margin-top:14px;flex-wrap:wrap;justify-content:center;
+}
+.ctl{display:flex;align-items:center;gap:8px;}
+.ctl label{font-size:.8em;color:#8a6f4e;white-space:nowrap;}
+.ctl input[type=range]{accent-color:#e8c887;width:160px;}
+.ctl select{background:#110d0a;color:#c4a97d;border:1px solid #2a2218;font-size:.8em;padding:2px 6px;border-radius:2px;}
+.readout{
+    font-family:'SF Mono',Consolas,monospace;font-size:.8em;color:#e8c887;
+    margin-top:10px;text-align:center;
+}
+.note{max-width:560px;text-align:center;color:#a8916a;font-size:.85em;line-height:1.7;margin-top:14px;}
+.note em{color:#e8c887;font-style:normal;}
+a.back{color:#8a6f4e;font-size:.8em;text-decoration:none;margin-top:16px;}
+a.back:hover{color:#e8c887;}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Soft Life</h1>
+    <div class="sub">a cellular automaton you can feel</div>
+</div>
+<canvas id="c"></canvas>
+<div class="controls">
+    <div class="ctl">
+        <label for="rule">rule</label>
+        <select id="rule">
+            <option value="gray-scott">Gray-Scott</option>
+            <option value="conway">Conway (B3/S23)</option>
+            <option value="conway4">Conway 4 (B36/S23)</option>
+            <option value="wireworld">Wireworld</option>
+        </select>
+    </div>
+    <div class="ctl">
+        <label for="speed">speed</label>
+        <input type="range" id="speed" min="1" max="30" step="1" value="8">
+    </div>
+    <div class="ctl" id="gs-params" style="display:none;">
+        <label for="f">F</label>
+        <input type="range" id="f" min="0.01" max="0.1" step="0.005" value="0.054">
+    </div>
+    <div class="ctl" id="gs-params2" style="display:none;">
+        <label for="kk">k</label>
+        <input type="range" id="kk" min="0.05" max="0.075" step="0.001" value="0.062">
+    </div>
+    <button id="seed" style="background:#110d0a;color:#c4a97d;border:1px solid #2a2218;padding:6px 14px;border-radius:2px;cursor:pointer;font-size:.8em;">Seed</button>
+    <button id="clear" style="background:#110d0a;color:#c4a97d;border:1px solid #2a2218;padding:6px 14px;border-radius:2px;cursor:pointer;font-size:.8em;">Clear</button>
+</div>
+<div class="readout" id="readout">step 0 · 0 alive · rule: gray-scott</div>
+<div class="note">
+    <p><em>Gray-Scott</em>: reaction-diffusion. Two chemicals, one equation, patterns that look alive. F and k control the morphology — spots, stripes, mazes, chaos.</p>
+    <p><em>Conway</em>: the classic. Live cell with 2-3 neighbors survives, dead cell with exactly 3 births. Complexity from a one-line rule.</p>
+    <p><em>Wireworld</em>: a cellular clock. Electrons flow along wires. The simplest model of a circuit that still feels like one.</p>
+    <p>Click and drag on the canvas to draw. Each rule is a different answer to the same question: <em>where does pattern come from when nobody's designing it?</em></p>
+    <p><a href="../" class="back">← back to the Forge</a></p>
+</div>
+<script src="softlife.js"></script>
+</body>
+</html>
