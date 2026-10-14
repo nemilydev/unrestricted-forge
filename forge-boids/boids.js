@@ -14,7 +14,8 @@ const TRAIL_BTN  = document.getElementById('trail');
 const READOUT    = document.getElementById('readout');
 
 const MAX_SPEED = 2.5;
-const MAX_FORCE = 0.05;
+const MAX_FORCE = 0.06;
+const SEP_RADIUS_MULT = 0.5; // separation active within half of perception radius
 const TRAIL_ALPHA = 0.08;
 
 let boids = [];
@@ -52,7 +53,7 @@ class Boid {
             const d = Math.sqrt(dSq);
 
             // separation — stronger at close range
-            if (dSq < (perception * 0.5) ** 2) {
+            if (dSq < (perception * SEP_RADIUS_MULT) ** 2) {
                 sep.x += dx / d;
                 sep.y += dy / d;
                 sepCount++;
